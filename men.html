@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="assets/images/logo.png" alt="Logo" style="height: 70px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="men.html">Men</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="women.html">Women</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+                <li class="nav-item navbar-icons">
+                    <a class="nav-link" href="#" id="loginIcon">
+                        <i class="fas fa-user"></i>
+                        <span id="cartCount" class="cart-icon-badge">0</span>
+                    </a>
+                    <a class="nav-link" href="#" id="cartIcon"><i class="fas fa-shopping-cart"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Background Image Container -->
+    <div class="background-image-container">
+        <div class="overlay-content">
+            <h1>Welcome to Coastal Lime</h1>
+            <p>This is a sample text that scrolls over the background image.</p>
+        </div>
+    </div>
+
+    <!-- Product Catalog -->
+    <div class="container mt-5 pt-5">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Filters -->
+                <h4>Filters</h4>
+                <form id="filterForm">
+                    <div class="form-group">
+                        <label for="categoryFilter">Category</label>
+                        <div id="categoryFilter">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="electronics" id="categoryElectronics">
+                                <label class="form-check-label" for="categoryElectronics">T-Shirts</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="fashion" id="categoryFashion">
+                                <label class="form-check-label" for="categoryFashion">Pants</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="home" id="categoryHome">
+                                <label class="form-check-label" for="categoryHome">Jacket</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="priceFilter">Price Range</label>
+                        <input type="range" class="form-control-range" id="priceFilter" min="0" max="1000" step="10">
+                        <div id="priceRangeDisplay">Max Price: $1000</div>
+                    </div>
+                    <button type="button" class="btn btn-dark-grey btn-block" onclick="filterProducts()">Apply Filters</button>
+                    <button type="button" class="btn btn-secondary btn-block" onclick="resetFilters()">Reset Filters</button>
+                </form>
+            </div>
+            <div class="col-md-9">
+                <!-- Sort Options -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Product Catalog</h2>
+                    <select class="form-control w-auto" id="sortOptions" onchange="sortProducts()">
+                        <option value="default">Sort By</option>
+                        <option value="priceLowToHigh">Price: Low to High</option>
+                        <option value="priceHighToLow">Price: High to Low</option>
+                        <option value="newest">Newest Arrivals</option>
+                        <option value="popularity">Popularity</option>
+                    </select>
+                </div>
+                <!-- Product Cards -->
+                <div class="row" id="productCatalog">
+                    <div class="col-md-4 product-card" data-category="electronics" data-price="299" data-newest="2024-01-01" data-popularity="5">
+                        <div class="card">
+                            <img src="assets/images/product-1.jpg" class="card-img-top" alt="Product Image">
+                            <div class="card-body">
+                                <h5 class="card-title">Product 1</h5>
+                                <p class="card-text">$299</p>
+                                <p class="card-text">Category: T-Shirts</p>
+                                <div class="stars" id="rating1"></div>
+                                <button class="btn btn-dark-grey" onclick="addToCart('Product 1', 299)">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product-card" data-category="fashion" data-price="99" data-newest="2024-05-15" data-popularity="3">
+                        <div class="card">
+                            <img src="assets/images/product-1.jpg" class="card-img-top" alt="Product Image">
+                            <div class="card-body">
+                                <h5 class="card-title">Product 2</h5>
+                                <p class="card-text">$99</p>
+                                <p class="card-text">Category: T-Shirts</p>
+                                <div class="stars" id="rating2"></div>
+                                <button class="btn btn-dark-grey" onclick="addToCart('Product 2', 99)">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product-card" data-category="home" data-price="199" data-newest="2024-03-10" data-popularity="8">
+                        <div class="card">
+                            <img src="assets/images/product-1.jpg" class="card-img-top" alt="Product Image">
+                            <div class="card-body">
+                                <h5 class="card-title">Product 3</h5>
+                                <p class="card-text">$199</p>
+                                <p class="card-text">Category: Pants</p>
+                                <div class="stars" id="rating3"></div>
+                                <button class="btn btn-dark-grey" onclick="addToCart('Product 3', 199)">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more product cards as needed -->
+                    <div class="col-md-4 product-card" data-category="electronics" data-price="299" data-newest="2024-01-01" data-popularity="5">
+                        <div class="card">
+                            <img src="assets/images/product-1.jpg" class="card-img-top" alt="Product Image">
+                            <div class="card-body">
+                                <h5 class="card-title">Product 4</h5>
+                                <p class="card-text">$299</p>
+                                <p class="card-text">Category: Pants</p>
+                                <div class="stars" id="rating1"></div>
+                                <button class="btn btn-dark-grey" onclick="addToCart('Product 1', 299)">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product-card" data-category="fashion" data-price="99" data-newest="2024-05-15" data-popularity="3">
+                        <div class="card">
+                            <img src="assets/images/product-1.jpg" class="card-img-top" alt="Product Image">
+                            <div class="card-body">
+                                <h5 class="card-title">Product 5</h5>
+                                <p class="card-text">$99</p>
+                                <p class="card-text">Category: Jacket</p>
+                                <div class="stars" id="rating2"></div>
+                                <button class="btn btn-dark-grey" onclick="addToCart('Product 2', 99)">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product-card" data-category="home" data-price="199" data-newest="2024-03-10" data-popularity="8">
+                        <div class="card">
+                            <img src="assets/images/product-1.jpg" class="card-img-top" alt="Product Image">
+                            <div class="card-body">
+                                <h5 class="card-title">Product 6</h5>
+                                <p class="card-text">$199</p>
+                                <p class="card-text">Category: Jacket</p>
+                                <div class="stars" id="rating3"></div>
+                                <button class="btn btn-dark-grey" onclick="addToCart('Product 3', 199)">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Container -->
+    <div id="cartContainer" class="cart-container">
+        <h4>Shopping Cart</h4>
+        <ul id="cartItems"></ul>
+        <p id="cartTotal">Total: $0</p>
+        <button class="btn btn-dark-grey btn-block" onclick="checkout()">Checkout</button>
+    </div>
+
+    <!-- Login Container -->
+    <div id="loginContainer" class="login-container">
+        <h4>Login</h4>
+        <button class="btn btn-primary btn-block" onclick="loginWithGoogle()">Login with Google</button>
+        <button class="btn btn-primary btn-block mt-2" onclick="loginWithFacebook()">Login with Facebook</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script>
+        // Toggle cart and login containers
+        document.getElementById('cartIcon').addEventListener('click', function() {
+            const cartContainer = document.getElementById('cartContainer');
+            const loginContainer = document.getElementById('loginContainer');
+            cartContainer.style.display = cartContainer.style.display === 'none' || cartContainer.style.display === '' ? 'block' : 'none';
+            loginContainer.style.display = 'none';
+        });
+
+        document.getElementById('loginIcon').addEventListener('click', function() {
+            const cartContainer = document.getElementById('cartContainer');
+            const loginContainer = document.getElementById('loginContainer');
+            loginContainer.style.display = loginContainer.style.display === 'none' || loginContainer.style.display === '' ? 'block' : 'none';
+            cartContainer.style.display = 'none';
+        });
+
+        // Add to cart functionality
+        const cart = [];
+        let cartItemCount = 0;
+
+        function addToCart(productName, price) {
+            cart.push({ productName, price });
+            cartItemCount++;
+            updateCart();
+            updateCartCount();
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            cartItems.innerHTML = '';
+
+            let total = 0;
+            const itemCount = {};
+            cart.forEach(item => {
+                total += item.price;
+                itemCount[item.productName] = (itemCount[item.productName] || 0) + 1;
+            });
+
+            for (const [productName, quantity] of Object.entries(itemCount)) {
+                cartItems.innerHTML += `<li>${productName} - $${(cart.find(item => item.productName === productName).price).toFixed(2)} x ${quantity} <button class="btn btn-danger btn-sm float-right" onclick="removeFromCart('${productName}')">Delete</button></li>`;
+            }
+
+            cartTotal.innerText = `Total: $${total.toFixed(2)}`;
+        }
+
+        function updateCartCount() {
+            document.getElementById('cartCount').innerText = cartItemCount;
+        }
+
+        function removeFromCart(productName) {
+            const newCart = [];
+            cart.forEach(item => {
+                if (item.productName === productName) {
+                    cartItemCount--;
+                } else {
+                    newCart.push(item);
+                }
+            });
+            cart.length = 0;
+            cart.push(...newCart);
+            updateCart();
+            updateCartCount();
+        }
+
+        function checkout() {
+            alert('Proceeding to checkout');
+        }
+
+        // Social login simulation
+        function loginWithGoogle() {
+            alert('Login with Google');
+        }
+
+        function loginWithFacebook() {
+            alert('Login with Facebook');
+        }
+
+        // Initial star rating update
+        function updateStarRatings() {
+            const products = document.querySelectorAll('.product-card');
+            products.forEach(product => {
+                const popularity = parseInt(product.getAttribute('data-popularity'), 10);
+                const stars = product.querySelector('.stars');
+                stars.innerHTML = '';
+
+                for (let i = 0; i < 5; i++) {
+                    const starClass = i < popularity ? 'fas fa-star' : 'far fa-star';
+                    stars.innerHTML += `<i class="${starClass}"></i>`;
+                }
+            });
+        }
+
+        // Initial star rating update
+        updateStarRatings();
+
+        // Filter and sort functions
+        document.getElementById('priceFilter').addEventListener('input', function() {
+            document.getElementById('priceRangeDisplay').innerText = 'Max Price: $' + this.value;
+        });
+
+        function filterProducts() {
+            const selectedCategories = Array.from(document.querySelectorAll('#categoryFilter input:checked')).map(cb => cb.value);
+            const maxPrice = document.getElementById('priceFilter').value;
+
+            const products = document.querySelectorAll('.product-card');
+            products.forEach(product => {
+                const productCategory = product.getAttribute('data-category');
+                const productPrice = parseInt(product.getAttribute('data-price'), 10);
+
+                let showProduct = true;
+                if (selectedCategories.length && !selectedCategories.includes(productCategory)) {
+                    showProduct = false;
+                }
+                if (productPrice > maxPrice) {
+                    showProduct = false;
+                }
+
+                product.style.display = showProduct ? 'block' : 'none';
+            });
+        }
+
+        function resetFilters() {
+            document.querySelectorAll('#categoryFilter input').forEach(cb => cb.checked = false);
+            document.getElementById('priceFilter').value = 1000;
+            document.getElementById('priceRangeDisplay').innerText = 'Max Price: $1000';
+            filterProducts();
+        }
+
+        function sortProducts() {
+            const sortBy = document.getElementById('sortOptions').value;
+            const products = Array.from(document.querySelectorAll('.product-card'));
+
+            products.sort((a, b) => {
+                const priceA = parseInt(a.getAttribute('data-price'), 10);
+                const priceB = parseInt(b.getAttribute('data-price'), 10);
+                const dateA = new Date(a.getAttribute('data-newest'));
+                const dateB = new Date(b.getAttribute('data-newest'));
+                const popularityA = parseInt(a.getAttribute('data-popularity'), 10);
+                const popularityB = parseInt(b.getAttribute('data-popularity'), 10);
+
+                if (sortBy === 'priceLowToHigh') {
+                    return priceA - priceB;
+                } else if (sortBy === 'priceHighToLow') {
+                    return priceB - priceA;
+                } else if (sortBy === 'newest') {
+                    return dateB - dateA;
+                } else if (sortBy === 'popularity') {
+                    return popularityB - popularityA;
+                } else {
+                    return 0;
+                }
+            });
+
+            const productCatalog = document.getElementById('productCatalog');
+            products.forEach(product => productCatalog.appendChild(product));
+        }
+    </script>
+</body>
+</html>
